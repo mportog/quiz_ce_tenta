@@ -1,29 +1,33 @@
+import 'package:ce_tenta_quizz/controller/teddy_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 class SmartFlareAnimation extends StatefulWidget {
   _SmartFlareAnimationState createState() => _SmartFlareAnimationState();
 }
 
 class _SmartFlareAnimationState extends State<SmartFlareAnimation> {
-  // width and height retrieved from the artboard values in the animation
-  static const double AnimationWidth = 295.0;
-  static const double AnimationHeight = 251.0;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _teddyStore = Provider.of<TeddyStore>(context);
+  }
 
-  bool isOpen = false;
+  TeddyStore _teddyStore;
 
   @override
   Widget build(BuildContext context) {
+    double animationWidth = MediaQuery.of(context).size.width;
+    double animationHeight = MediaQuery.of(context).size.width / 2;
+
     return Container(
-      width: AnimationWidth,
-      height: AnimationHeight,
-      child: GestureDetector(
-          onTap: () {
-            setState(() {
-              isOpen = !isOpen;
-            });
-          },
-          child: FlareActor('assets/flare/wrong_bear.flr', animation: 'idle')),
-    );
+        width: animationWidth,
+        height: animationHeight,
+        child: Observer(
+          builder: (_) => FlareActor('assets/flare/Teddy.flr',
+              animation: 'idle', controller: _teddyStore.teddyControl),
+        ));
   }
 }

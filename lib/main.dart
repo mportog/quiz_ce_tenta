@@ -1,5 +1,9 @@
+import 'package:ce_tenta_quizz/controller/app_controller.dart';
+import 'package:ce_tenta_quizz/controller/questions_controller.dart';
+import 'package:ce_tenta_quizz/controller/teddy_controller.dart';
 import 'package:ce_tenta_quizz/view/page/quiz_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,13 +12,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '70 Quiz',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: QuizPage(),
-    );
+    return MultiProvider(
+        providers: [
+          Provider<TeddyStore>(create: (_) => TeddyStore()),
+          Provider<AppController>(create: (_) => AppController()),
+          Provider<QuestionsStore>(create: (_) => QuestionsStore()),
+        ],
+        child: MaterialApp(
+          title: '70 Quiz',
+          theme: ThemeData(
+            primarySwatch: Colors.purple,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: QuizPage(),
+        ));
   }
 }
