@@ -1,7 +1,7 @@
 import 'package:ce_tenta_quizz/controller/app_controller.dart';
 import 'package:ce_tenta_quizz/controller/questions_controller.dart';
 import 'package:ce_tenta_quizz/controller/teddy_controller.dart';
-import 'package:ce_tenta_quizz/view/page/quiz_page.dart';
+import 'package:ce_tenta_quizz/view/page/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.purple,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: QuizPage(),
+          home: HomePage(),
         ));
   }
 }

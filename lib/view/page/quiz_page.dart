@@ -43,11 +43,13 @@ class _QuizPageState extends State<QuizPage> {
             IconButton(
                 icon: Icon(Icons.lightbulb_outline, color: Colors.yellow),
                 onPressed: () {
-                  _questionsStore.isLoading = !_questionsStore.isLoading;
+                  _questionsStore.stopLoading();
+                  print('dica');
                 }),
             IconButton(
                 icon: Icon(Icons.navigate_next),
                 onPressed: () {
+                  print(_questionsStore.isLoading);
                   print('pular');
                 })
           ],

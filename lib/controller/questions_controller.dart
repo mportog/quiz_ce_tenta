@@ -40,7 +40,7 @@ abstract class _QuestionsStoreBase with Store {
     } catch (e) {
       print('Error Fetching Data on QuestionsController: ${e.toString()}');
     } finally {
-      //isLoading = false;
+      isLoading = false;
     }
   }
 
