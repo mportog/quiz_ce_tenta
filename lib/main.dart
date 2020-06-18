@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
           Provider<QuestionsStore>(create: (_) => QuestionsStore()),
         ],
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: '70 Quiz',
           theme: ThemeData(
             primarySwatch: Colors.purple,

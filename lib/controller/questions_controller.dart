@@ -39,6 +39,15 @@ abstract class _QuestionsStoreBase with Store {
       }
     } catch (e) {
       print('Error Fetching Data on QuestionsController: ${e.toString()}');
+    } finally {
+      //isLoading = false;
     }
+  }
+
+  @action
+  void stopLoading() {
+    print('antes: $isLoading');
+    isLoading = !isLoading;
+    print('depois: $isLoading');
   }
 }
