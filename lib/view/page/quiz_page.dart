@@ -1,3 +1,4 @@
+import 'package:ce_tenta_quizz/controller/questions_controller.dart';
 import 'package:ce_tenta_quizz/controller/teddy_controller.dart';
 import 'package:ce_tenta_quizz/shared/enum/enum_teddy_animations.dart';
 import 'package:ce_tenta_quizz/view/widget/option_card.dart';
@@ -15,8 +16,10 @@ class _QuizPageState extends State<QuizPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _teddyStore = Provider.of<TeddyStore>(context);
+    _questionsStore = Provider.of<QuestionsStore>(context);
   }
 
+  QuestionsStore _questionsStore;
   TeddyStore _teddyStore;
 
   @override
@@ -86,6 +89,10 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ]),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _questionsStore.fetchQuestions,
+          child: Icon(Icons.get_app),
+        ),
       ),
     );
   }

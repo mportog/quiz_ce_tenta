@@ -1,9 +1,7 @@
-import 'package:ce_tenta_quizz/shared/enum/enum_status.dart';
-
 class ApiResponse<T> {
-  Status status;
-
+  final int status;
   T data;
+  final String message;
 
-  String message;
+  ApiResponse({this.status, this.data, this.message});
 }
