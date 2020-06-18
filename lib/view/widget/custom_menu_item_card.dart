@@ -11,24 +11,26 @@ class MenuItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final itemHeight = MediaQuery.of(context).size.height * 0.4;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+    return MaterialButton(
+      onPressed: iconPressed,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Card(
-        color: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        // margin: EdgeInsets.symmetric(horizontal: 9),
         elevation: 5,
+        color: Colors.white,
+        shadowColor: Colors.black,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Container(
+          width: MediaQuery.of(context).size.width,
           height: itemHeight,
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                InkWell(
-                  onTap: iconPressed,
-                  child:
-                      Icon(cardIcon, color: iconColor, size: itemHeight * 0.4),
-                ),
-                Text(titleCard, style: TextStyle(fontSize: itemHeight * 0.1)),
+                Icon(cardIcon, color: iconColor, size: itemHeight * 0.4),
+                Text(titleCard,
+                    style: TextStyle(fontSize: itemHeight * 0.09),
+                    textAlign: TextAlign.center),
                 Column(children: columnChild)
               ]),
         ),
