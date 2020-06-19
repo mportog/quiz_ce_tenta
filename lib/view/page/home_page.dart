@@ -1,6 +1,7 @@
 import 'package:ce_tenta_quizz/view/page/quiz_page.dart';
 import 'package:ce_tenta_quizz/view/widget/custom_menu_item_card.dart';
 import 'package:ce_tenta_quizz/view/widget/custom_text_card.dart';
+import 'package:ce_tenta_quizz/view/widget/home_functions.dart';
 import 'package:ce_tenta_quizz/view/widget/menu_grid_card.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with HomeFunc {
   final TextStyle labelInfo = TextStyle(fontSize: 20);
   final TextStyle labelLink = TextStyle(
       fontSize: 20,
@@ -27,7 +28,9 @@ class _HomePageState extends State<HomePage> {
             title: Text('70 Quiz', style: TextStyle(fontSize: 28)),
             centerTitle: true,
             actions: <Widget>[
-              IconButton(icon: Icon(Icons.share), onPressed: () {})
+              IconButton(
+                  icon: Icon(Icons.share),
+                  onPressed: () => shareApp('text', 'subject'))
             ],
           ),
           backgroundColor: Colors.purple,
@@ -48,14 +51,23 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(children: <Widget>[
                     Container(
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width - 40,
+                      ),
                       height: MediaQuery.of(context).size.width * 0.7,
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: MenuGridItemCard(
-                          Icons.stars, Colors.yellow, 'Pontuação', [
-                        CustomTextSize('Acertos 30', labelInfo),
-                        CustomTextSize('Erros 70', labelInfo),
-                        CustomTextSize('Equivalem a 50%', labelInfo)
-                      ]),
+                      child: Flex(
+                        direction: Axis.horizontal,
+                        children: <Widget>[
+                          Expanded(
+                            child: MenuGridItemCard(
+                                Icons.stars, Colors.yellow, 'Pontuação', [
+                              CustomTextSize('Acertos 30', labelInfo),
+                              CustomTextSize('Erros 70', labelInfo),
+                              CustomTextSize('Equivalem a 50%', labelInfo)
+                            ]),
+                          ),
+                        ],
+                      ),
                     )
                   ])),
               SizedBox(height: 10),
@@ -65,53 +77,28 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     Expanded(
                       flex: 1,
-                      child: MenuItemCard(
-                          //  MenuGridItemCard(
-                          Icons.info,
-                          Colors.blue,
-                          () {},
-                          'Informações',
-                          [
-                            CustomTextSize('Site base das perguntas', labelInfo)
-                          ]),
+                      child: MenuItemCard(Icons.info, Colors.blue, () {
+                        alertModal(context, 'title',
+                            content: [Text('bla bla')]);
+                      }, 'Informações', [
+                        CustomTextSize('Site base das perguntas', labelInfo)
+                      ]),
                     ),
                     Expanded(
                       flex: 1,
-                      child: MenuItemCard(
-                          // MenuGridItemCard(
-                          Icons.cloud_circle,
-                          Colors.purple,
-                          () {},
-                          'Sites',
-                          [
-                            CustomTextSize('Site base das perguntas', labelLink)
-                          ]),
+                      child: MenuItemCard(Icons.cloud_circle, Colors.purple,
+                          () {
+                        alertModal(context, 'title',
+                            content: [Text('bla bla')]);
+                      }, 'Sites', [
+                        CustomTextSize('Site base das perguntas', labelLink)
+                      ]),
                     ),
                   ],
                 ),
               ),
             ],
-          )
-          // ListView(children: <Widget>[
-          //   MenuItemCard(Icons.play_circle_filled, Colors.green, () {
-          //     Navigator.of(context)
-          //         .push(MaterialPageRoute(builder: (_) => QuizPage()));
-          //   }, 'Jogar !', [
-          //     Text('Aperte o icone para dar inicio ao quiz', style: labelInfo),
-          //     Text('70 perguntas de conhecimentos gerais', style: labelInfo)
-          //   ]),
-          //   MenuItemCard(Icons.stars, Colors.yellow, () {}, 'Pontuação', [
-          //     Text('Acertos 30', style: labelInfo),
-          //     Text('Erros 70', style: labelInfo),
-          //     Text('Equivalem a 50%', style: labelInfo)
-          //   ]),
-          //   MenuItemCard(Icons.info, Colors.blue, () {}, 'Informações',
-          //       [Text('Site base das perguntas', style: labelInfo)]),
-          //   MenuItemCard(Icons.cloud_circle, Colors.purple, () {}, 'Sites',
-          //       [Text('Site base das perguntas', style: labelLink)]),
-          // ]),
-
-          ),
+          )),
     );
   }
 }

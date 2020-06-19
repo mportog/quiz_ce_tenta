@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:ce_tenta_quizz/view/skeleton/shimmering_list_tile.dart';
+import 'package:ce_tenta_quizz/view/skeleton/shimmering_teddy.dart';
 import 'package:ce_tenta_quizz/view/widget/custom_question_card.dart';
-import 'package:ce_tenta_quizz/view/widget/shimmering_list_tile.dart';
-import 'package:ce_tenta_quizz/view/widget/shimmering_teddy.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 

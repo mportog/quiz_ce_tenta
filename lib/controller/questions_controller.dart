@@ -32,15 +32,23 @@ abstract class _QuestionsStoreBase with Store {
       isLoading = true;
       var response = await _apiSheetRepository.fetchData();
       if (response.status == 200) {
-        questions = ObservableList<Questions>.of(response.data.questions);
+        var iterator = response.data.questions;
+        questions.clear();
+        questions.addAll(ObservableList<Questions>.of(iterator));
+        // for (Questions q in iterator) questions.add(q);//só add cada vez mais
+        // questions = ObservableList<Questions>.of(iterator);//só add cada vez mais
+        // questions = iterator;//só add cada vez mais
+        // questions = ObservableList.of(iterator); //só add cada vez mais
       } else {
         message = response.message;
         print(response.message);
       }
-    } catch (e) {
-      print('Error Fetching Data on QuestionsController: ${e.toString()}');
-    } finally {
+      Future.delayed(Duration(seconds: 1));
       isLoading = false;
+    } catch (e) {
+      isLoading = false;
+
+      print('Error Fetching Data on QuestionsController: ${e.toString()}');
     }
   }
 

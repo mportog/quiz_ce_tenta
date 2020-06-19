@@ -23,7 +23,7 @@ class OptionCard extends StatelessWidget {
             padding: EdgeInsets.all(8),
             child: Container(
               constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.75),
+                  maxWidth: MediaQuery.of(context).size.width - 120),
               child: AutoSizeText(
                 value,
                 textAlign: TextAlign.start,
