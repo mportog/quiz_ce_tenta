@@ -27,7 +27,7 @@ abstract class _QuestionsStoreBase with Store {
   void setCurrentQuestion(int value) => questionNumber = value;
 
   @action
-  void fetchQuestions() async {
+  Future<dynamic> fetchQuestions() async {
     try {
       isLoading = true;
       var response = await _apiSheetRepository.fetchData();
@@ -39,16 +39,19 @@ abstract class _QuestionsStoreBase with Store {
         // questions = ObservableList<Questions>.of(iterator);//só add cada vez mais
         // questions = iterator;//só add cada vez mais
         // questions = ObservableList.of(iterator); //só add cada vez mais
+        return questions[questionNumber];
       } else {
         message = response.message;
         print(response.message);
+        return message;
       }
-      Future.delayed(Duration(seconds: 1));
-      isLoading = false;
     } catch (e) {
-      isLoading = false;
-
       print('Error Fetching Data on QuestionsController: ${e.toString()}');
+      message = e.toString();
+      print(e);
+      return message;
+    } finally {
+      isLoading = false;
     }
   }
 
