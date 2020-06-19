@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> with HomeFunc {
                     Expanded(
                       flex: 1,
                       child: MenuItemCard(Icons.info, Colors.blue, () {
-                        alertModal(context, 'title',
+                        alertModal(context, 'Curiosidades do App',
                             content: [Text('bla bla')]);
                       }, 'Informações', [
                         CustomTextSize('Site base das perguntas', labelInfo)
@@ -88,10 +88,10 @@ class _HomePageState extends State<HomePage> with HomeFunc {
                       flex: 1,
                       child: MenuItemCard(Icons.cloud_circle, Colors.purple,
                           () {
-                        alertModal(context, 'title',
-                            content: [Text('bla bla')]);
+                        alertModal(context, 'Links da Web', content: infoApp);
                       }, 'Sites', [
-                        CustomTextSize('Site base das perguntas', labelLink)
+                        CustomTextSize(
+                            'Acesso aos fontes base do projeto', labelInfo)
                       ]),
                     ),
                   ],

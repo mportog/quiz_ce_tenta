@@ -20,24 +20,27 @@ class MenuItemCard extends StatelessWidget {
         color: Colors.white,
         shadowColor: Colors.black,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: Container(
-          constraints: BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width - 5,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Container(
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width,
+            ),
+            height: itemHeight,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Icon(cardIcon, color: iconColor, size: itemHeight * 0.4),
+                  AutoSizeText(titleCard,
+                      overflow: TextOverflow.ellipsis,
+                      stepGranularity: 1,
+                      maxLines: 1,
+                      style: TextStyle(fontSize: itemHeight * 0.09),
+                      textAlign: TextAlign.center),
+                  Column(children: columnChild)
+                ]),
           ),
-          height: itemHeight,
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Icon(cardIcon, color: iconColor, size: itemHeight * 0.4),
-                AutoSizeText(titleCard,
-                    overflow: TextOverflow.ellipsis,
-                    stepGranularity: 1,
-                    maxLines: 1,
-                    style: TextStyle(fontSize: itemHeight * 0.09),
-                    textAlign: TextAlign.center),
-                Column(children: columnChild)
-              ]),
         ),
       ),
     );
