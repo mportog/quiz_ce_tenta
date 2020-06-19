@@ -30,7 +30,9 @@ class _HomePageState extends State<HomePage> with HomeFunc {
             actions: <Widget>[
               IconButton(
                   icon: Icon(Icons.share),
-                  onPressed: () => shareApp('text', 'subject'))
+                  onPressed: () => shareApp(
+                      'Veja só este app de quiz que encontrei! Você pode fazer o download do .apk dele e instalar no seu Android também! http://encurtador.com.br/gnBHR',
+                      'Link do app 70Quiz para instalação em Android'))
             ],
           ),
           backgroundColor: Colors.purple,
