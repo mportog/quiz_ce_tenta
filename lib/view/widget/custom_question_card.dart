@@ -12,7 +12,7 @@ class QuestionCard extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 5,
         child: Container(
-          height: MediaQuery.of(context).size.height / 4,
+          height: MediaQuery.of(context).size.height / 5,
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(8.0),

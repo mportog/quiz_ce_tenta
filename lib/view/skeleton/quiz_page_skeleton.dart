@@ -35,6 +35,8 @@ class QuizPageSkeleton extends StatelessWidget {
           ShimmeringListTile(),
           SizedBox(height: 5),
           ShimmeringListTile(),
+          SizedBox(height: 5),
+          ShimmeringListTile(),
         ],
       ),
     );

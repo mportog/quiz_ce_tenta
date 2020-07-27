@@ -1,4 +1,3 @@
-import 'package:ce_tenta_quizz/controller/app_controller.dart';
 import 'package:ce_tenta_quizz/controller/questions_controller.dart';
 import 'package:ce_tenta_quizz/controller/teddy_controller.dart';
 import 'package:ce_tenta_quizz/view/page/home_page.dart';
@@ -15,7 +14,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           Provider<TeddyStore>(create: (_) => TeddyStore()),
-          Provider<AppController>(create: (_) => AppController()),
           Provider<QuestionsStore>(create: (_) => QuestionsStore()),
         ],
         child: MaterialApp(

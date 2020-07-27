@@ -4,19 +4,63 @@ import 'package:ce_tenta_quizz/view/widget/custom_text_card.dart';
 import 'package:ce_tenta_quizz/view/widget/home_functions.dart';
 import 'package:ce_tenta_quizz/view/widget/menu_grid_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
+
+import '../../controller/questions_controller.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with HomeFunc {
+class _HomePageState extends State<HomePage>
+    with WidgetsBindingObserver, HomeFunc {
   final TextStyle labelInfo = TextStyle(fontSize: 20);
   final TextStyle labelLink = TextStyle(
       fontSize: 20,
       color: Colors.blue,
       fontStyle: FontStyle.italic,
       decoration: TextDecoration.underline);
+  QuestionsStore _questionsStore;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        _questionsStore.getData();
+        break;
+      case AppLifecycleState.paused:
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.detached:
+        _questionsStore.saveData();
+        break;
+      default:
+        break;
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _questionsStore = Provider.of<QuestionsStore>(context);
+    _questionsStore.setCurrentQuestion(_questionsStore.questionNumber);
+    _questionsStore.getData();
+    _questionsStore.fetchQuestions();
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -63,9 +107,21 @@ class _HomePageState extends State<HomePage> with HomeFunc {
                           Expanded(
                             child: MenuGridItemCard(
                                 Icons.stars, Colors.yellow, 'Pontuação', [
-                              CustomTextSize('Acertos 30', labelInfo),
-                              CustomTextSize('Erros 70', labelInfo),
-                              CustomTextSize('Equivalem a 50%', labelInfo)
+                              Observer(
+                                builder: (_) => CustomTextSize(
+                                    'Acertos ${_questionsStore.corrects}',
+                                    labelInfo),
+                              ),
+                              Observer(
+                                builder: (_) => CustomTextSize(
+                                    'Erros ${_questionsStore.wrongs}',
+                                    labelInfo),
+                              ),
+                              Observer(
+                                builder: (_) => CustomTextSize(
+                                    'Progresso: ${_questionsStore.wrongs + _questionsStore.corrects} de ${_questionsStore.questions.length}',
+                                    labelInfo),
+                              ),
                             ]),
                           ),
                         ],
@@ -80,11 +136,12 @@ class _HomePageState extends State<HomePage> with HomeFunc {
                     Expanded(
                       flex: 1,
                       child: MenuItemCard(Icons.info, Colors.blue, () {
-                        alertModal(context, 'Curiosidades do App',
-                            content: [Text('bla bla')]);
-                      }, 'Informações', [
-                        CustomTextSize('Site base das perguntas', labelInfo)
-                      ]),
+                        alertModal(context, 'Curiosidades', content: [
+                          Text(
+                              'Aplicativo de entreternimento feito em Flutter com base de dados das perguntas feito no Google Sheets')
+                        ]);
+                      }, 'Informações',
+                          [CustomTextSize('Infos e diferenciais', labelInfo)]),
                     ),
                     Expanded(
                       flex: 1,

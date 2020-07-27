@@ -1,10 +1,14 @@
 import 'package:ce_tenta_quizz/controller/questions_controller.dart';
 import 'package:ce_tenta_quizz/controller/teddy_controller.dart';
-import 'package:ce_tenta_quizz/view/skeleton/quiz_page_skeleton.dart';
+import 'package:ce_tenta_quizz/view/widget/custom_bottom_sheet.dart';
+import 'package:ce_tenta_quizz/view/widget/custom_index_icon.dart';
 import 'package:ce_tenta_quizz/view/widget/quiz_game_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
+
+import '../../shared/enum/enum_teddy_animations.dart';
 
 class QuizPage extends StatefulWidget {
   @override
@@ -16,11 +20,18 @@ class _QuizPageState extends State<QuizPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _questionsStore = Provider.of<QuestionsStore>(context);
+    _questionsStore.isLoading = true;
     _teddyStore = Provider.of<TeddyStore>(context);
+    reaction(
+        (_) => _questionsStore.message.isNotEmpty,
+        (_) => CustomBottomeSheet().customBottomSheet(
+            context, 'Curiosidade', Text(_questionsStore.message)));
+    Future.delayed(Duration(seconds: 1))
+        .then((value) => _questionsStore.isLoading = false);
   }
 
-  QuestionsStore _questionsStore;
   TeddyStore _teddyStore;
+  QuestionsStore _questionsStore;
 
   @override
   Widget build(BuildContext context) {
@@ -37,36 +48,33 @@ class _QuizPageState extends State<QuizPage> {
                 'Pergunta ${_questionsStore.questionNumber + 1} de ${_questionsStore.questions.length}'),
           ),
           actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.lightbulb_outline, color: Colors.yellow),
+            FlatButton.icon(
                 onPressed: () {
-                  print('dica');
-                })
+                  _questionsStore.useHint();
+                  _teddyStore.setTeddyAnimation(TeddyAnimations.hands_up);
+                },
+                icon: Text('Dicas'),
+                label: Observer(
+                  builder: (_) => CustomNotificationIndex(
+                      Icon(
+                        Icons.lightbulb_outline,
+                        color: Colors.yellow,
+                      ),
+                      _questionsStore.hints.toString()),
+                ),
+                textColor: Colors.white)
           ],
         ),
         backgroundColor: Colors.purple,
-        body: Stack(children: <Widget>[
-          Container(
-            constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width - 10),
-            child: FutureBuilder(
-                future: _questionsStore.fetchQuestions(),
-                builder: (context, snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return QuizPageSkeleton();
-                    case ConnectionState.waiting:
-                      return Container(
-                          child: Center(child: Text('Sem Internet!')));
-                    default:
-                      if (snapshot.hasError || snapshot.data == null)
-                        return Container(child: Center(child: Text('ERRO!')));
-                      else
-                        return QuizPageWidgets(_questionsStore, _teddyStore);
-                  }
-                }),
-          ),
-        ]),
+        body: Container(
+          constraints:
+              BoxConstraints(maxWidth: MediaQuery.of(context).size.width - 10),
+          child: Observer(
+              builder: (_) => QuizPageWidgets(
+                  _questionsStore.questions[_questionsStore.questionNumber],
+                  _questionsStore.selected,
+                  _teddyStore)),
+        ),
       ),
     );
   }

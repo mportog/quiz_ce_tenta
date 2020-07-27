@@ -2,14 +2,15 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class OptionCard extends StatelessWidget {
-  OptionCard(this.optionKey, this.value, this.setAnim);
+  OptionCard(this.optionKey, this.value, this.optionSelected);
   final String optionKey;
   final String value;
-  final void Function() setAnim;
+  final VoidCallback optionSelected;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: setAnim,
+      onTap: optionSelected,
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10), color: Colors.white),
