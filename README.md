@@ -1,16 +1,12 @@
-# ce_tenta_quizz
+# 70quizz (ce_tenta_quizz)
 
-A new Flutter project.
+Projeto no formato de quiz, com 70 perguntas de conhecimentos gerais, feito em Flutter.
 
-## Getting Started
+## Objetivo e integrações
 
-This project is a starting point for a Flutter application.
+Projeto para desenvolver nova habilidade com Flare, integração do usa das planilhas do Google Sheets como banco de dados e dados do site Toda Matéria.
 
-A few resources to get you started if this is your first Flutter project:
+Animações feitas com Flare, a cada interação durante o jogo. Arquivo público (Teddy), baixado de Rive (https://rive.app)
+Perguntas e respostas de conhecimentos ferais retiradas do site Toda Matéria.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Planilha do GoogleSheets para armazenar as perguntas e respostas usadas no quiz, possuem integração com rota especifica para fornecer os dados em formato JSON para a aplicação.
